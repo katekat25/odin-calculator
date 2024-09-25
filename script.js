@@ -3,26 +3,36 @@ let rightNumber = 0;
 let operator = "";
 const displayValue = document.querySelector("#display");
 const numButtons = document.querySelectorAll("#button-container > button");
+const operatorButtons = document.querySelectorAll("#actions-container > .operator");
+const displayButtons = document.querySelectorAll("#button-container > button, #actions-container > .operator");
+const equalsButton = document.querySelector("#equals");
+const clearButton = document.querySelector("#clear");
+const listOfAllOperators = "+-X/"
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
-        console.log(buttonValue);
-        displayValue.textContent +=  buttonValue;
+        console.log("Button clicked is " + buttonValue);
+        displayValue.textContent += buttonValue;
     });
 })
 
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        let buttonValue = button.textContent;
+        console.log("Button clicked is " + buttonValue);
+        console.log("listOfAllOperators is " + listOfAllOperators);
+        console.log("Last char of string displayValue is " + displayValue.textContent.slice(-1));
+        console.log("Is this last char NOT an operator? " + !listOfAllOperators.includes(displayValue.textContent.slice(-1)))
+        if (!listOfAllOperators.includes(displayValue.textContent.slice(-1))) {
+            displayValue.textContent += buttonValue;
+        }
+    })
+})
 
-
-function populateDisplay() {
-
-}
-
-
-
-function clearDisplay() {
-
-}
+clearButton.addEventListener("click", () => {
+    displayValue.textContent = "";
+})
 
 function operate(operator, a, b) {
     switch (operator) {
