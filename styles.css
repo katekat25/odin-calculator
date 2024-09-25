@@ -1,0 +1,37 @@
+div {
+    border: 1px solid red;
+
+    margin: 10px;
+}
+
+#container {
+    border: 1px solid blue;
+    height: 974px;
+    width: 478px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#display {
+    background-color: gray;
+    height: 150px;
+}
+
+#button-container {
+    width: 458px;
+    height: 450x;
+}
+
+#actions-container {
+    width: 458px;
+    height: 100px;
+    flex: 1;
+}
+
+button{
+    height: 150px;
+    width: 150px;
+    display: inline-block;
+}
