@@ -2,14 +2,27 @@ let leftNumber = 0;
 let rightNumber = 0;
 let operator = "";
 const displayValue = document.querySelector("#display");
-const buttons = document.querySelectorAll("button");
+const numButtons = document.querySelectorAll("#button-container > button");
 
-buttons.forEach((button) => {
+numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
         console.log(buttonValue);
+        displayValue.textContent +=  buttonValue;
     });
 })
+
+
+
+function populateDisplay() {
+
+}
+
+
+
+function clearDisplay() {
+
+}
 
 function operate(operator, a, b) {
     switch (operator) {
@@ -28,16 +41,6 @@ function operate(operator, a, b) {
         default:
             console.log("Some kind of wacky thang happened oops.");
     }
-}
-
-function populateDisplay() {
-
-}
-
-
-
-function clearDisplay() {
-
 }
 
 //if its a number key, get the number pressed and add it to the ongoing display (a string maybe?)
