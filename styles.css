@@ -20,6 +20,8 @@ div {
     height: 150px;
     margin-bottom: -50px;
     font-size: 50px;
+    display: flex;
+    word-break: break-all;
 }
 
 #button-container {
