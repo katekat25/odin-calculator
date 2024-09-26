@@ -22,11 +22,11 @@ numButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
-        // console.log("Button clicked is " + buttonValue);
-        // console.log("listOfAllOperators is " + listOfAllOperators);
-        // console.log("Last char of string displayValue is " + displayValue.textContent.slice(-1));
-        // console.log("Is this last char NOT an operator? " + !listOfAllOperators.includes(displayValue.textContent.slice(-1)))
-        if (!listOfAllOperators.includes(displayValue.textContent.slice(-1))) {
+        let previousDisplayChar = displayValue.textContent.slice(-2).trim();
+        console.log(listOfAllOperators.includes(previousDisplayChar));
+        console.log(previousDisplayChar)
+        console.log(typeof previousDisplayChar);
+        if (listOfAllOperators.includes(previousDisplayChar) == false) {
             displayValue.textContent += " " + buttonValue + " ";
         }
     })
@@ -51,48 +51,48 @@ function calculate(string) {
         for (let i = 0; i < arr.length; i++) {
             if (arr.includes("X")) {
                 let indexOfX = arr.indexOf("X");
-                console.log("X is at index " + indexOfX);
-                console.log("We are replacing " + arr[arr.indexOf("X")] + " with the calculation.");
+                // console.log("X is at index " + indexOfX);
+                // console.log("We are replacing " + arr[arr.indexOf("X")] + " with the calculation.");
                 arr[arr.indexOf("X")] = operate("X", arr[indexOfX - 1], arr[indexOfX + 1]);
-                console.log("After doing the operation, the array is now as follows: " + arr);
-                console.log("Now we're trying to get rid of " + arr[indexOfX + 1]);
+                // console.log("After doing the operation, the array is now as follows: " + arr);
+                // console.log("Now we're trying to get rid of " + arr[indexOfX + 1]);
                 arr.splice(indexOfX + 1, 1);
-                console.log("Next, we get rid of " + arr[indexOfX - 1]);
+                // console.log("Next, we get rid of " + arr[indexOfX - 1]);
                 arr.splice(indexOfX - 1, 1);
-                console.log("The array is now as follows: " + arr);
+                // console.log("The array is now as follows: " + arr);
             } else if (arr.includes("/")) {
                 let indexOfDivide = arr.indexOf("/");
-                console.log("/ is at index " + indexOfDivide);
-                console.log("We are replacing " + arr[arr.indexOf("/")] + " with the calculation.");
+                // console.log("/ is at index " + indexOfDivide);
+                // console.log("We are replacing " + arr[arr.indexOf("/")] + " with the calculation.");
                 arr[arr.indexOf("/")] = operate("/", arr[indexOfDivide - 1], arr[indexOfDivide + 1]);
-                console.log("After doing the operation, the array is now as follows: " + arr);
-                console.log("Now we're trying to get rid of " + arr[indexOfDivide + 1]);
+                // console.log("After doing the operation, the array is now as follows: " + arr);
+                // console.log("Now we're trying to get rid of " + arr[indexOfDivide + 1]);
                 arr.splice(indexOfDivide + 1, 1);
-                console.log("Next, we get rid of " + arr[indexOfDivide - 1]);
+                // console.log("Next, we get rid of " + arr[indexOfDivide - 1]);
                 arr.splice(indexOfDivide - 1, 1);
-                console.log("The array is now as follows: " + arr);
+                // console.log("The array is now as follows: " + arr);
             } else if (arr.includes("+")) {
                 let indexOfPlus = arr.indexOf("+");
-                console.log("+ is at index " + indexOfPlus);
-                console.log("We are replacing " + arr[arr.indexOf("+")] + " with the calculation.");
+                // console.log("+ is at index " + indexOfPlus);
+                // console.log("We are replacing " + arr[arr.indexOf("+")] + " with the calculation.");
                 arr[arr.indexOf("+")] = operate("+", arr[indexOfPlus - 1], arr[indexOfPlus + 1]);
-                console.log("After doing the operation, the array is now as follows: " + arr);
-                console.log("Now we're trying to get rid of " + arr[indexOfPlus + 1]);
+                // console.log("After doing the operation, the array is now as follows: " + arr);
+                // console.log("Now we're trying to get rid of " + arr[indexOfPlus + 1]);
                 arr.splice(indexOfPlus + 1, 1);
-                console.log("Next, we get rid of " + arr[indexOfPlus - 1]);
+                // console.log("Next, we get rid of " + arr[indexOfPlus - 1]);
                 arr.splice(indexOfPlus - 1, 1);
-                console.log("The array is now as follows: " + arr);
+                // console.log("The array is now as follows: " + arr);
             } else if (arr.includes("-")) {
                 let indexOfMinus = arr.indexOf("-");
-                console.log("- is at index " + indexOfMinus);
-                console.log("We are replacing " + arr[arr.indexOf("-")] + " with the calculation.");
+                // console.log("- is at index " + indexOfMinus);
+                // console.log("We are replacing " + arr[arr.indexOf("-")] + " with the calculation.");
                 arr[arr.indexOf("-")] = operate("-", arr[indexOfMinus - 1], arr[indexOfMinus + 1]);
-                console.log("After doing the operation, the array is now as follows: " + arr);
-                console.log("Now we're trying to get rid of " + arr[indexOfMinus + 1]);
+                // console.log("After doing the operation, the array is now as follows: " + arr);
+                // console.log("Now we're trying to get rid of " + arr[indexOfMinus + 1]);
                 arr.splice(indexOfMinus + 1, 1);
-                console.log("Next, we get rid of " + arr[indexOfMinus - 1]);
+                // console.log("Next, we get rid of " + arr[indexOfMinus - 1]);
                 arr.splice(indexOfMinus - 1, 1);
-                console.log("The array is now as follows: " + arr);
+                // console.log("The array is now as follows: " + arr);
             }
         }
         return arr[0];
