@@ -8,7 +8,8 @@ const displayButtons = document.querySelectorAll("#button-container > button, #a
 const equalsButton = document.querySelector("#equals");
 const clearButton = document.querySelector("#clear");
 const listOfAllOperators = "+-X/";
-const regex = /[^0-9]/g;
+const numbers = /[0-9]/g;
+const operators = /[^0-9]/g;
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -41,32 +42,52 @@ clearButton.addEventListener("click", () => {
 
 function calculate(string) {
     if (string.includes("/")
-    || string.includes("X")
-    || string.includes("+")
-    || string.includes("-")) {
-        console.log("it can find the thang");
-        let workingEquation = [];
-        let indexOfOperator = string.search(regex);
-        workingEquation[0] = string.slice(0, indexOfOperator);
-        workingEquation[1] = string.slice(indexOfOperator + 1, string.length);
-        let operator = string.charAt(indexOfOperator);
-        console.log("First slice is " + workingEquation[0]);
-        console.log("Second slice is " + workingEquation[1]);
-        console.log("Operator is " + operator);
-        return operate(operator, workingEquation[0], workingEquation[1]);
+        || string.includes("X")
+        || string.includes("+")
+        || string.includes("-")) {
+        //console.log("it can find the thang");
+        let numberArray = string
+            .replace(operators, " operator ")
+            .split(" ")
+            .filter((char) => char !== "operator");
+
+        console.log("numberArray is " + numberArray);
+
+        let operatorArray = string
+            .split(numbers)
+            .filter((char) => char !== '');
+
+        console.log("operatorArray is " + operatorArray);
+        
+        for (i = 0; i < operatorArray.length; i++) {
+            console.log("In the for loop for the " + i + "th time.");
+            console.log("The operator is " + operatorArray[1] + ". The first thing to operate on is " + numberArray[0] + ". The second thing to operate is " + numberArray[1]);
+            numberArray[0] = operate(operatorArray[i], numberArray[0], numberArray[1]);
+            numberArray[1] = numberArray[1 + i + 1];
+            console.log(numberArray[0] + " " + numberArray[1]);
+        }
+
+        return numberArray[0];
+        //console.log(stringForParsing);
+
+
+
     } else return string;
     //have it calculate one operator at a time and return a whole number to the working list
     //once there are no more operators in the list, return the number
 }
 
-function getEquationParts(string) {
 
-}
 
+//TODO
 //make it (pe)mdas???
+//add option for negative numbers
+//more operators if desired, like power and sqrt
+//
 //
 
 function operate(operator, a, b) {
+    console.log("In operate(). The operator is " + operator + ". The first num is " + a + ". The second num is " + b + ".");
     switch (operator) {
         case "+":
             return add(a, b);
@@ -86,17 +107,18 @@ function operate(operator, a, b) {
 }
 
 function add(a, b) {
-    return a + b;
+    console.log("Added a and b. I got " + (Number(a) + Number(b)));
+    return Number(a) + Number(b);
 }
 
 function subtract(a, b) {
-    return a - b;
+    return Number(a) - Number(b);
 }
 
 function multiply(a, b) {
-    return a * b;
+    return Number(a) * Number(b);
 }
 
 function divide(a, b) {
-    return a / b;
+    return Number(a) / Number(b);
 }
