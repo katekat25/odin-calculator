@@ -1,6 +1,6 @@
-let leftNumber = 0;
-let rightNumber = 0;
-let operator = "";
+//let leftNumber = 0;
+//let rightNumber = 0;
+//let operator = "";
 const displayValue = document.querySelector("#display");
 const numButtons = document.querySelectorAll("#button-container > button");
 const operatorButtons = document.querySelectorAll("#actions-container > .operator");
@@ -8,6 +8,7 @@ const displayButtons = document.querySelectorAll("#button-container > button, #a
 const equalsButton = document.querySelector("#equals");
 const clearButton = document.querySelector("#clear");
 const listOfAllOperators = "+-X/";
+const regex = /[^0-9]/g;
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -44,8 +45,16 @@ function calculate(string) {
     || string.includes("+")
     || string.includes("-")) {
         console.log("it can find the thang");
+        let workingEquation = [];
+        let indexOfOperator = string.search(regex);
+        workingEquation[0] = string.slice(0, indexOfOperator);
+        workingEquation[1] = string.slice(indexOfOperator + 1, string.length);
+        let operator = string.charAt(indexOfOperator);
+        console.log("First slice is " + workingEquation[0]);
+        console.log("Second slice is " + workingEquation[1]);
+        console.log("Operator is " + operator);
+        return operate(operator, workingEquation[0], workingEquation[1]);
     } else return string;
-    //if theres no operator return the number
     //have it calculate one operator at a time and return a whole number to the working list
     //once there are no more operators in the list, return the number
 }
@@ -65,7 +74,7 @@ function operate(operator, a, b) {
         case "-":
             return subtract(a, b);
             break;
-        case "*":
+        case "X":
             return multiply(a, b);
             break;
         case "/":
