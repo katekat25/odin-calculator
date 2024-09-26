@@ -7,12 +7,12 @@ const operatorButtons = document.querySelectorAll("#actions-container > .operato
 const displayButtons = document.querySelectorAll("#button-container > button, #actions-container > .operator");
 const equalsButton = document.querySelector("#equals");
 const clearButton = document.querySelector("#clear");
-const listOfAllOperators = "+-X/"
+const listOfAllOperators = "+-X/";
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
-        console.log("Button clicked is " + buttonValue);
+        // console.log("Button clicked is " + buttonValue);
         displayValue.textContent += buttonValue;
     });
 })
@@ -20,19 +20,42 @@ numButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
-        console.log("Button clicked is " + buttonValue);
-        console.log("listOfAllOperators is " + listOfAllOperators);
-        console.log("Last char of string displayValue is " + displayValue.textContent.slice(-1));
-        console.log("Is this last char NOT an operator? " + !listOfAllOperators.includes(displayValue.textContent.slice(-1)))
+        // console.log("Button clicked is " + buttonValue);
+        // console.log("listOfAllOperators is " + listOfAllOperators);
+        // console.log("Last char of string displayValue is " + displayValue.textContent.slice(-1));
+        // console.log("Is this last char NOT an operator? " + !listOfAllOperators.includes(displayValue.textContent.slice(-1)))
         if (!listOfAllOperators.includes(displayValue.textContent.slice(-1))) {
             displayValue.textContent += buttonValue;
         }
     })
 })
 
+equalsButton.addEventListener("click", () => {
+    displayValue.textContent = calculate(displayValue.textContent);
+})
+
 clearButton.addEventListener("click", () => {
     displayValue.textContent = "";
 })
+
+function calculate(string) {
+    if (string.includes("/")
+    || string.includes("X")
+    || string.includes("+")
+    || string.includes("-")) {
+        console.log("it can find the thang");
+    }
+    //if theres no operator return the number
+    //have it calculate one operator at a time and return a whole number to the working list
+    //once there are no more operators in the list, return the number
+}
+
+function getEquationParts(string) {
+
+}
+
+//make it (pe)mdas???
+//
 
 function operate(operator, a, b) {
     switch (operator) {
@@ -52,10 +75,6 @@ function operate(operator, a, b) {
             console.log("Some kind of wacky thang happened oops.");
     }
 }
-
-//if its a number key, get the number pressed and add it to the ongoing display (a string maybe?)
-//if its an operator key do that too
-//if its an equals key then do a different function
 
 function add(a, b) {
     return a + b;
