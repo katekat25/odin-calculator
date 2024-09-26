@@ -27,7 +27,7 @@ operatorButtons.forEach((button) => {
         // console.log("Last char of string displayValue is " + displayValue.textContent.slice(-1));
         // console.log("Is this last char NOT an operator? " + !listOfAllOperators.includes(displayValue.textContent.slice(-1)))
         if (!listOfAllOperators.includes(displayValue.textContent.slice(-1))) {
-            displayValue.textContent += buttonValue;
+            displayValue.textContent += " " + buttonValue + " ";
         }
     })
 })
@@ -46,45 +46,68 @@ function calculate(string) {
         || string.includes("+")
         || string.includes("-")) {
         //console.log("it can find the thang");
-        let numberArray = string
-            .replace(operators, " operator ")
-            .split(" ")
-            .filter((char) => char !== "operator");
-
-        console.log("numberArray is " + numberArray);
-
-        let operatorArray = string
-            .split(numbers)
-            .filter((char) => char !== '');
-
-        console.log("operatorArray is " + operatorArray);
-        
-        for (i = 0; i < operatorArray.length; i++) {
-            console.log("In the for loop for the " + i + "th time.");
-            console.log("The operator is " + operatorArray[1] + ". The first thing to operate on is " + numberArray[0] + ". The second thing to operate is " + numberArray[1]);
-            numberArray[0] = operate(operatorArray[i], numberArray[0], numberArray[1]);
-            numberArray[1] = numberArray[1 + i + 1];
-            console.log(numberArray[0] + " " + numberArray[1]);
+        let arr = string.split(" ");
+        console.log(arr);
+        for (let i = 0; i < arr.length; i++) {
+            if (arr.includes("X")) {
+                let indexOfX = arr.indexOf("X");
+                console.log("X is at index " + indexOfX);
+                console.log("We are replacing " + arr[arr.indexOf("X")] + " with the calculation.");
+                arr[arr.indexOf("X")] = operate("X", arr[indexOfX - 1], arr[indexOfX + 1]);
+                console.log("After doing the operation, the array is now as follows: " + arr);
+                console.log("Now we're trying to get rid of " + arr[indexOfX + 1]);
+                arr.splice(indexOfX + 1, 1);
+                console.log("Next, we get rid of " + arr[indexOfX - 1]);
+                arr.splice(indexOfX - 1, 1);
+                console.log("The array is now as follows: " + arr);
+            } else if (arr.includes("/")) {
+                let indexOfDivide = arr.indexOf("/");
+                console.log("/ is at index " + indexOfDivide);
+                console.log("We are replacing " + arr[arr.indexOf("/")] + " with the calculation.");
+                arr[arr.indexOf("/")] = operate("/", arr[indexOfDivide - 1], arr[indexOfDivide + 1]);
+                console.log("After doing the operation, the array is now as follows: " + arr);
+                console.log("Now we're trying to get rid of " + arr[indexOfDivide + 1]);
+                arr.splice(indexOfDivide + 1, 1);
+                console.log("Next, we get rid of " + arr[indexOfDivide - 1]);
+                arr.splice(indexOfDivide - 1, 1);
+                console.log("The array is now as follows: " + arr);
+            } else if (arr.includes("+")) {
+                let indexOfPlus = arr.indexOf("+");
+                console.log("+ is at index " + indexOfPlus);
+                console.log("We are replacing " + arr[arr.indexOf("+")] + " with the calculation.");
+                arr[arr.indexOf("+")] = operate("+", arr[indexOfPlus - 1], arr[indexOfPlus + 1]);
+                console.log("After doing the operation, the array is now as follows: " + arr);
+                console.log("Now we're trying to get rid of " + arr[indexOfPlus + 1]);
+                arr.splice(indexOfPlus + 1, 1);
+                console.log("Next, we get rid of " + arr[indexOfPlus - 1]);
+                arr.splice(indexOfPlus - 1, 1);
+                console.log("The array is now as follows: " + arr);
+            } else if (arr.includes("-")) {
+                let indexOfMinus = arr.indexOf("-");
+                console.log("- is at index " + indexOfMinus);
+                console.log("We are replacing " + arr[arr.indexOf("-")] + " with the calculation.");
+                arr[arr.indexOf("-")] = operate("-", arr[indexOfMinus - 1], arr[indexOfMinus + 1]);
+                console.log("After doing the operation, the array is now as follows: " + arr);
+                console.log("Now we're trying to get rid of " + arr[indexOfMinus + 1]);
+                arr.splice(indexOfMinus + 1, 1);
+                console.log("Next, we get rid of " + arr[indexOfMinus - 1]);
+                arr.splice(indexOfMinus - 1, 1);
+                console.log("The array is now as follows: " + arr);
+            }
         }
-
-        return numberArray[0];
-        //console.log(stringForParsing);
-
-
-
+        return arr[0];
     } else return string;
-    //have it calculate one operator at a time and return a whole number to the working list
-    //once there are no more operators in the list, return the number
 }
 
+//PEMDAS HELL
+//the current for loop wont work because it only works in order.
+//
 
 
 //TODO
 //make it (pe)mdas???
 //add option for negative numbers
 //more operators if desired, like power and sqrt
-//
-//
 
 function operate(operator, a, b) {
     console.log("In operate(). The operator is " + operator + ". The first num is " + a + ". The second num is " + b + ".");
