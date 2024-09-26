@@ -44,7 +44,7 @@ function calculate(string) {
     || string.includes("+")
     || string.includes("-")) {
         console.log("it can find the thang");
-    }
+    } else return string;
     //if theres no operator return the number
     //have it calculate one operator at a time and return a whole number to the working list
     //once there are no more operators in the list, return the number
