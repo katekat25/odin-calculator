@@ -43,7 +43,7 @@ negButton.addEventListener("click", () => {
 
 creditButton.addEventListener("click", () => {
     console.log(displayValue.textContent);
-    displayValue.textContent = "80085";
+    displayValue.textContent = "8008135";
 });
 
 function calculate(string) {

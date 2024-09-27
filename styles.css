@@ -1,13 +1,13 @@
 div {
-    border: 1px solid red;
+    border: 1px solid black;
     border-radius: 10px;
     margin: 50px;
-    background-color: pink;
+    background-color: plum;
 }
 
 #container {
-    border: 1px solid blue;
-    height: 1050px;
+    box-shadow: inset 10px 10px rgba(128, 0, 128, 0.3);
+    height: 1000px;
     width: 715px;
     margin: auto;
     display: flex;
@@ -34,9 +34,11 @@ div {
 }
 
 button{
+    box-shadow: inset 10px 10px rgba(128, 0, 128, 0.3);
+    border-radius: 10px;
     height: 150px;
     width: 150px;
     font-size: 75px;
     display: inline-block;
-    background-color: hotpink;
+    background-color: orchid;
 }
