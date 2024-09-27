@@ -1,15 +1,10 @@
-//let leftNumber = 0;
-//let rightNumber = 0;
-//let operator = "";
 const displayValue = document.querySelector("#display");
-const numButtons = document.querySelectorAll("#button-container > button");
-const operatorButtons = document.querySelectorAll("#actions-container > .operator");
-const displayButtons = document.querySelectorAll("#button-container > button, #actions-container > .operator");
+const numButtons = document.querySelectorAll("#button-container > .number");
+const operatorButtons = document.querySelectorAll("#button-container > .operator");
+const displayButtons = document.querySelectorAll("#button-container > .number, #button-container > .operator");
 const equalsButton = document.querySelector("#equals");
 const clearButton = document.querySelector("#clear");
-const listOfAllOperators = "+-X/";
-const numbers = /[0-9]/g;
-const operators = /[^0-9]/g;
+const deleteButton = document.querySelector("#delete");
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -26,18 +21,25 @@ operatorButtons.forEach((button) => {
         // console.log(listOfAllOperators.includes(previousDisplayChar));
         // console.log(previousDisplayChar)
         // console.log(typeof previousDisplayChar);
-        if (listOfAllOperators.includes(previousDisplayChar) == false) {
+        if ("+-X/".includes(previousDisplayChar) == false) {
             displayValue.textContent += " " + buttonValue + " ";
         }
     })
 })
 
 equalsButton.addEventListener("click", () => {
+    console.log("Clicked the equals button");
+    console.log("Text content is " + displayValue.textContent);
     displayValue.textContent = calculate(displayValue.textContent);
 })
 
 clearButton.addEventListener("click", () => {
     displayValue.textContent = "";
+})
+
+deleteButton.addEventListener("click", () => {
+    displayValue.textContent = displayValue.textContent.slice(0, -1)
+    .trim();
 })
 
 function calculate(string) {
