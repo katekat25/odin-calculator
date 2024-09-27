@@ -1,10 +1,11 @@
 const displayValue = document.querySelector("#display");
 const numButtons = document.querySelectorAll("#button-container > .number");
 const operatorButtons = document.querySelectorAll("#button-container > .operator");
-const displayButtons = document.querySelectorAll("#button-container > .number, #button-container > .operator");
 const equalsButton = document.querySelector("#equals");
 const clearButton = document.querySelector("#clear");
 const deleteButton = document.querySelector("#delete");
+const negButton = document.querySelector('#negative');
+const creditButton = document.querySelector("#credit");
 
 numButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -18,9 +19,6 @@ operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
         let previousDisplayChar = displayValue.textContent.slice(-2).trim();
-        // console.log(listOfAllOperators.includes(previousDisplayChar));
-        // console.log(previousDisplayChar)
-        // console.log(typeof previousDisplayChar);
         if ("+-X/".includes(previousDisplayChar) == false) {
             displayValue.textContent += " " + buttonValue + " ";
         }
@@ -28,19 +26,26 @@ operatorButtons.forEach((button) => {
 })
 
 equalsButton.addEventListener("click", () => {
-    console.log("Clicked the equals button");
-    console.log("Text content is " + displayValue.textContent);
     displayValue.textContent = calculate(displayValue.textContent);
-})
+});
 
 clearButton.addEventListener("click", () => {
     displayValue.textContent = "";
-})
+});
 
 deleteButton.addEventListener("click", () => {
     displayValue.textContent = displayValue.textContent.slice(0, -1)
     .trim();
-})
+});
+
+negButton.addEventListener("click", () => {
+    displayValue.textContent += "-";
+});
+
+creditButton.addEventListener("click", () => {
+    console.log(displayValue.textContent);
+    displayValue.textContent = "80085";
+});
 
 function calculate(string) {
     if (string.includes("/")
@@ -93,14 +98,6 @@ function calculateChunk(operator, array) {
     return array;
 }
 
-//add negative number feature
-
-
-//TODO
-//make it (pe)mdas???
-//add option for negative numbers
-//more operators if desired, like power and sqrt
-
 function operate(operator, a, b) {
     console.log("In operate(). The operator is " + operator + ". The first num is " + a + ". The second num is " + b + ".");
     switch (operator) {
@@ -114,6 +111,11 @@ function operate(operator, a, b) {
             return multiply(a, b);
             break;
         case "/":
+            if (b == 0) {
+                alert("I know what you did.");
+                displayValue.textContent = "";
+                return;
+            }
             return divide(a, b);
             break;
         default:
