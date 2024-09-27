@@ -23,9 +23,9 @@ operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
         let buttonValue = button.textContent;
         let previousDisplayChar = displayValue.textContent.slice(-2).trim();
-        console.log(listOfAllOperators.includes(previousDisplayChar));
-        console.log(previousDisplayChar)
-        console.log(typeof previousDisplayChar);
+        // console.log(listOfAllOperators.includes(previousDisplayChar));
+        // console.log(previousDisplayChar)
+        // console.log(typeof previousDisplayChar);
         if (listOfAllOperators.includes(previousDisplayChar) == false) {
             displayValue.textContent += " " + buttonValue + " ";
         }
@@ -45,63 +45,54 @@ function calculate(string) {
         || string.includes("X")
         || string.includes("+")
         || string.includes("-")) {
-        //console.log("it can find the thang");
         let arr = string.split(" ");
-        console.log(arr);
-        for (let i = 0; i < arr.length; i++) {
-            if (arr.includes("X")) {
-                let indexOfX = arr.indexOf("X");
-                // console.log("X is at index " + indexOfX);
-                // console.log("We are replacing " + arr[arr.indexOf("X")] + " with the calculation.");
-                arr[arr.indexOf("X")] = operate("X", arr[indexOfX - 1], arr[indexOfX + 1]);
-                // console.log("After doing the operation, the array is now as follows: " + arr);
-                // console.log("Now we're trying to get rid of " + arr[indexOfX + 1]);
-                arr.splice(indexOfX + 1, 1);
-                // console.log("Next, we get rid of " + arr[indexOfX - 1]);
-                arr.splice(indexOfX - 1, 1);
-                // console.log("The array is now as follows: " + arr);
-            } else if (arr.includes("/")) {
-                let indexOfDivide = arr.indexOf("/");
-                // console.log("/ is at index " + indexOfDivide);
-                // console.log("We are replacing " + arr[arr.indexOf("/")] + " with the calculation.");
-                arr[arr.indexOf("/")] = operate("/", arr[indexOfDivide - 1], arr[indexOfDivide + 1]);
-                // console.log("After doing the operation, the array is now as follows: " + arr);
-                // console.log("Now we're trying to get rid of " + arr[indexOfDivide + 1]);
-                arr.splice(indexOfDivide + 1, 1);
-                // console.log("Next, we get rid of " + arr[indexOfDivide - 1]);
-                arr.splice(indexOfDivide - 1, 1);
-                // console.log("The array is now as follows: " + arr);
-            } else if (arr.includes("+")) {
-                let indexOfPlus = arr.indexOf("+");
-                // console.log("+ is at index " + indexOfPlus);
-                // console.log("We are replacing " + arr[arr.indexOf("+")] + " with the calculation.");
-                arr[arr.indexOf("+")] = operate("+", arr[indexOfPlus - 1], arr[indexOfPlus + 1]);
-                // console.log("After doing the operation, the array is now as follows: " + arr);
-                // console.log("Now we're trying to get rid of " + arr[indexOfPlus + 1]);
-                arr.splice(indexOfPlus + 1, 1);
-                // console.log("Next, we get rid of " + arr[indexOfPlus - 1]);
-                arr.splice(indexOfPlus - 1, 1);
-                // console.log("The array is now as follows: " + arr);
-            } else if (arr.includes("-")) {
-                let indexOfMinus = arr.indexOf("-");
-                // console.log("- is at index " + indexOfMinus);
-                // console.log("We are replacing " + arr[arr.indexOf("-")] + " with the calculation.");
-                arr[arr.indexOf("-")] = operate("-", arr[indexOfMinus - 1], arr[indexOfMinus + 1]);
-                // console.log("After doing the operation, the array is now as follows: " + arr);
-                // console.log("Now we're trying to get rid of " + arr[indexOfMinus + 1]);
-                arr.splice(indexOfMinus + 1, 1);
-                // console.log("Next, we get rid of " + arr[indexOfMinus - 1]);
-                arr.splice(indexOfMinus - 1, 1);
-                // console.log("The array is now as follows: " + arr);
+        let numberOfOperators = arr.filter(x => x=="X" || x=="/" || x=="+" || x=="-").length;
+        // console.log("numberOfOperators is " + numberOfOperators);
+        for (let i = 0; i < numberOfOperators; i++) {
+            // console.log("In the god forsaken for loop. " + i + "st round.");
+            if (arr.includes("X") || arr.includes("/")) {
+                // console.log("Array includes X or /. Calculating those first.")
+                if (arr.indexOf("X") == -1) {
+                    // console.log("There is no X in this equation.");
+                    arr = calculateChunk("/", arr);
+                } else if (arr.indexOf("/") == -1) {
+                    // console.log("There is no / in this equation.");
+                    arr = calculateChunk("X", arr);
+                } else arr = arr.indexOf("X") < arr.indexOf("/") ? calculateChunk("X", arr) : calculateChunk("/", arr);
+                // console.log("New array is " + arr);
             }
+            else if (arr.includes("+") || arr.includes("-")) {
+                // console.log("Array includes + or -. Calculating those now.")
+                if (arr.indexOf("+") == -1) {
+                    // console.log("There is no + in this equation.");
+                    arr = calculateChunk("-", arr);
+                } else if (arr.indexOf("-") == -1) {
+                    // console.log("There is no - in this equation.");
+                    arr = calculateChunk("+", arr);
+                } else arr = arr.indexOf("+") < arr.indexOf("-") ? calculateChunk("+", arr) : calculateChunk("-", arr);
+                // console.log("New array is " + arr);
+            }
+
         }
+        // console.log("Exited loop. Returning array[0], " + arr[0])
         return arr[0];
-    } else return string;
+    }
 }
 
-//PEMDAS HELL
-//the current for loop wont work because it only works in order.
-//
+function calculateChunk(operator, array) {
+    console.log("In calculateChunk. Array is " + array + " and operator is " + operator);
+    let indexOfOperator = array.indexOf(operator);
+    console.log("indexOfOperator is " + indexOfOperator);
+    array[indexOfOperator] = operate(operator, array[indexOfOperator - 1], array[indexOfOperator + 1]);
+    console.log("We attempted to operate the thing at index " + indexOfOperator + ". Now it's " + array[indexOfOperator]);
+    array.splice(indexOfOperator + 1, 1);
+    array.splice(indexOfOperator - 1, 1);
+    console.log("Modified array we're returning now is " + array);
+    return array;
+}
+
+//MULTIPLICATION AND DIVISION ARE LEFT TO RIGHT!!!!!!! FUCK!!!!!!!!!!
+//add negative number feature
 
 
 //TODO
