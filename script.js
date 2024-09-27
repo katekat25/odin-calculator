@@ -46,7 +46,7 @@ function calculate(string) {
         || string.includes("+")
         || string.includes("-")) {
         let arr = string.split(" ");
-        let numberOfOperators = arr.filter(x => x=="X" || x=="/" || x=="+" || x=="-").length;
+        let numberOfOperators = arr.filter(x => x == "X" || x == "/" || x == "+" || x == "-").length;
         // console.log("numberOfOperators is " + numberOfOperators);
         for (let i = 0; i < numberOfOperators; i++) {
             // console.log("In the god forsaken for loop. " + i + "st round.");
@@ -80,18 +80,17 @@ function calculate(string) {
 }
 
 function calculateChunk(operator, array) {
-    console.log("In calculateChunk. Array is " + array + " and operator is " + operator);
+    // console.log("In calculateChunk. Array is " + array + " and operator is " + operator);
     let indexOfOperator = array.indexOf(operator);
-    console.log("indexOfOperator is " + indexOfOperator);
+    // console.log("indexOfOperator is " + indexOfOperator);
     array[indexOfOperator] = operate(operator, array[indexOfOperator - 1], array[indexOfOperator + 1]);
-    console.log("We attempted to operate the thing at index " + indexOfOperator + ". Now it's " + array[indexOfOperator]);
+    // console.log("We attempted to operate the thing at index " + indexOfOperator + ". Now it's " + array[indexOfOperator]);
     array.splice(indexOfOperator + 1, 1);
     array.splice(indexOfOperator - 1, 1);
-    console.log("Modified array we're returning now is " + array);
+    // console.log("Modified array we're returning now is " + array);
     return array;
 }
 
-//MULTIPLICATION AND DIVISION ARE LEFT TO RIGHT!!!!!!! FUCK!!!!!!!!!!
 //add negative number feature
 
 

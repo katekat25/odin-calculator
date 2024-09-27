@@ -7,25 +7,24 @@ div {
 
 #container {
     border: 1px solid blue;
-    height: 1124px;
-    width: 558px;
+    height: 1050px;
+    width: 715px;
     margin: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 #display {
     background-color: gray;
     height: 150px;
     margin-bottom: -50px;
-    font-size: 50px;
+    font-size: 60px;
     word-break: break-all;
 }
 
 #button-container {
-    width: 458px;
-    height: 450x;
+    width: 612px;
+    height: 750x;
     margin-bottom: -50px;
 }
 
