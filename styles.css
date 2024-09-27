@@ -6,7 +6,7 @@ div {
 }
 
 #container {
-    box-shadow: inset 10px 10px rgba(128, 0, 128, 0.3);
+    box-shadow: inset -10px -10px rgba(128, 0, 128, 0.3);
     height: 1000px;
     width: 715px;
     margin: auto;
@@ -34,7 +34,7 @@ div {
 }
 
 button{
-    box-shadow: inset 10px 10px rgba(128, 0, 128, 0.3);
+    box-shadow: inset -10px -10px rgba(128, 0, 128, 0.3);
     border-radius: 10px;
     height: 150px;
     width: 150px;
